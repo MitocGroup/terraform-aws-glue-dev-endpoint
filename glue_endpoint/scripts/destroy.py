@@ -11,6 +11,9 @@ AWS_GLUE_API = boto3.client(
     endpoint_url='https://glue.{0}.amazonaws.com'.format(REGION))
 
 def main():
+    '''
+    Destroy Endpoint if it exist
+    '''
     try:
         AWS_GLUE_API.delete_dev_endpoint(
             EndpointName=os.environ['EndpointName'])
