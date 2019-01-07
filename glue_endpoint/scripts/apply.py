@@ -51,7 +51,7 @@ def update_dev_endpoint(arguments, dev_end_point):
     if ARGS['PublicKeys']:
         arguments['AddPublicKeys'] = {
             "AddPublicKeys": ARGS['PublicKeys'].split(',')}
-    arguments['DeletePublicKeys'] = dev_end_point['PublicKeys']
+    arguments['DeletePublicKeys'] = dev_end_point.get('PublicKeys')
     if ARGS['ExtraPythonLibsS3Path'] and ARGS['ExtraJarsS3Path']:
         arguments['CustomLibraries'] = {
             "CustomLibraries": {
