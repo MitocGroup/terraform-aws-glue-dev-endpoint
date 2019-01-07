@@ -1,4 +1,4 @@
-data "external" "terrahub_glue_endpoint" {
+data "external" "glue_endpoint" {
   program = ["python", "${path.module}/scripts/get.py"]
 
   query = {

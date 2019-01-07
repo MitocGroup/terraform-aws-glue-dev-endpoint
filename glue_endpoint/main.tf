@@ -1,4 +1,4 @@
-resource "null_resource" "terrahub_glue_endpoint_apply" {
+resource "null_resource" "glue_endpoint_apply" {
 
   triggers {
     default_tfvars = "${md5(file("${path.module}/default.tfvars"))}"
@@ -24,8 +24,8 @@ resource "null_resource" "terrahub_glue_endpoint_apply" {
   }
 }
 
-resource "null_resource" "terrahub_glue_endpoint_destroy" {
-  count = "${data.external.terrahub_glue_endpoint.result["Exist"] == "True" ? 1 : 0}"
+resource "null_resource" "glue_endpoint_destroy" {
+  count = "${data.external.glue_endpoint.result["Exist"] == "True" ? 1 : 0}"
   provisioner "local-exec" {
     when    = "destroy"
     command = "python ${path.module}/scripts/destroy.py"
