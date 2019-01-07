@@ -1,0 +1,5 @@
+## local config
+component:
+  name: 'glue_endpoint'
+  mapping:
+    - '.'
