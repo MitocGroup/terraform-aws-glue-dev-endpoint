@@ -4,6 +4,6 @@ output "id" {
   value = "${var.glue_endpoint_name}"
 }
 
-output "thub_id" {
+output "name" {
   value = "${var.glue_endpoint_name}"
 }
