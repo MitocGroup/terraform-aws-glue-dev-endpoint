@@ -6,7 +6,7 @@ resource "null_resource" "glue_endpoint_apply" {
     when    = "create"
     command = "python ${path.module}/scripts/apply.py"
     environment {
-      region                    = "${var.region}"
+      region                    = "${var.aws_region}"
       endpoint_name             = "${var.glue_endpoint_name}"
       role_arn                  = "${var.glue_endpoint_role}"
       security_group_ids        = "${join(",",var.glue_endpoint_security_group_ids)}"
@@ -37,7 +37,7 @@ resource "null_resource" "glue_endpoint_destroy" {
     when    = "destroy"
     command = "python ${path.module}/scripts/destroy.py"
     environment {
-      region        = "${var.region}"
+      region        = "${var.aws_region}"
       endpoint_name = "${var.glue_endpoint_name}"
     }
   }
