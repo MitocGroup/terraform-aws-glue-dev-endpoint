@@ -6,10 +6,9 @@ Provides a Glue Dev Endpoint resource.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-|account_id|The id of AWS account.|string||Yes|
-|region|This is the AWS region.|string|us-east-1|Yes|
+|aws_region|This is the AWS region.|string|us-east-1|Yes|
 |glue_endpoint_name|The name to be assigned to the new DevEndpoint.|string|terraform-endpoint|Yes|
-|glue_endpoint_role_name|The IAM role for the DevEndpoint.|string|ServiceRoleForGlue|Yes|
+|glue_endpoint_role|The IAM role for the DevEndpoint.|string|ServiceRoleForGlue|Yes|
 |glue_endpoint_security_group_ids|Security group IDs for the security groups to be used by the new DevEndpoint.|list|[]|No|
 |glue_endpoint_subnet_id|The subnet ID for the new DevEndpoint to use.|string||No|
 |glue_endpoint_public_key|The public key to be used by this DevEndpoint for authentication. This attribute is provided for backward compatibility, as the recommended attribute to use is public keys.|string||No|
@@ -24,4 +23,4 @@ Provides a Glue Dev Endpoint resource.
 | Name | Description | Type |
 |------|-------------|:----:|
 |id|Dev Endpoint name|string|
-|thub_id|Dev Endpoint name|string|
+|name|Dev Endpoint name|string|
