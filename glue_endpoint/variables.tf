@@ -55,9 +55,3 @@ variable "glue_endpoint_extra_jars_libraries" {
 variable "glue_endpoint_security_configuration" {
   description = "The name of the SecurityConfiguration structure to be used with this DevEndpoint."
 }
-
-variable "command" {
-  description = "The terraform command."
-  default = ""
-}
-
