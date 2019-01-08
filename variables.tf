@@ -1,11 +1,6 @@
 # Define list of variables to be used in main.tf
 
-variable "account_id" {
-  description = "Allowed AWS account ID, to prevent you from mistakenly using an incorrect one (and potentially end up destroying a live environment)."
-  default = "123456789012"
-}
-
-variable "region" {
+variable "aws_region" {
   description = "This is the AWS region."
   default = "us-east-1"
 }
