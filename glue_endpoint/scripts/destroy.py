@@ -4,7 +4,7 @@ import os
 import json
 import boto3
 
-REGION = os.environ['Region']
+REGION = os.environ['region']
 AWS_GLUE_API = boto3.client(
     service_name='glue',
     region_name=REGION,
@@ -16,13 +16,13 @@ def main():
     '''
     try:
         AWS_GLUE_API.delete_dev_endpoint(
-            EndpointName=os.environ['EndpointName'])
+            EndpointName=os.environ['endpoint_name'])
         result = "Deleted"
     except Exception as error:
         result = str(error)
 
     return json.dumps({
-        "EndPointName": os.environ['EndpointName'],
+        "EndpointName": os.environ['endpoint_name'],
         "Result": result
     })
 

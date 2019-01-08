@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 """This code id use in Glue endpoint"""
-import sys
+import os
 import json
 import boto3
 
-ARGS = json.load(sys.stdin)
-REGION = ARGS['Region']
+REGION = os.environ['region']
 AWS_GLUE_API = boto3.client(
     service_name='glue',
     region_name=REGION,
@@ -16,47 +15,49 @@ def get_dev_endpoint_not_exist():
     Check if Endpoint exist
     '''
     try:
-        dev_end_point = AWS_GLUE_API.get_dev_endpoint(
-            EndpointName=ARGS['EndpointName'])
-        return dev_end_point
+        AWS_GLUE_API.get_dev_endpoint(EndpointName=os.environ['endpoint_name'])
+        return False
     except:
         return True
 
-def create_dev_endpoint(arguments):
+def create_endpoint(arguments):
     '''
     Create EndPoint
     '''
-    if ARGS['PublicKeys']:
+    if os.environ['public_keys']:
         arguments['PublicKeys'] = {
-            "PublicKeys": ARGS['PublicKeys'].split(',')}
-    if ARGS['ExtraPythonLibsS3Path']:
-        arguments['ExtraPythonLibsS3Path'] = ARGS['ExtraPythonLibsS3Path']
-    if ARGS['ExtraJarsS3Path']:
-        arguments['ExtraJarsS3Path'] = ARGS['ExtraJarsS3Path']
-    if ARGS['SecurityGroupIds']:
+            "PublicKeys": os.environ['public_keys'].split(',')}
+    if os.environ['extra_python_libs_s3_path']:
+        arguments['ExtraPythonLibsS3Path'] = os.environ['extra_python_libs_s3_path']
+    if os.environ['extra_jars_s3_path']:
+        arguments['ExtraJarsS3Path'] = os.environ['extra_jars_s3_path']
+    if os.environ['security_group_ids']:
         arguments['SecurityGroupIds'] = {
-            "SecurityGroupIds": ARGS['SecurityGroupIds'].split(',')}
-    if ARGS['SubnetId']:
-        arguments['SubnetId'] = ARGS['SubnetId']
-    if ARGS['NumberOfNodes']:
-        arguments['NumberOfNodes'] = int(ARGS['NumberOfNodes'])
-    if ARGS['SecurityConfiguration']:
-        arguments['SecurityConfiguration'] = ARGS['SecurityConfiguration']
+            "SecurityGroupIds": os.environ['security_group_ids'].split(',')}
+    if os.environ['subnet_id']:
+        arguments['SubnetId'] = os.environ['subnet_id']
+    if os.environ['number_of_nodes']:
+        arguments['NumberOfNodes'] = int(os.environ['number_of_nodes'])
+    if os.environ['security_configuration']:
+        arguments['SecurityConfiguration'] = os.environ['security_configuration']
+    if os.environ['role_arn']:
+        arguments['RoleArn'] = os.environ['role_arn']
     AWS_GLUE_API.create_dev_endpoint(**arguments)
 
-def update_dev_endpoint(arguments, dev_end_point):
+def update_endpoint(arguments, dev_end_point):
     '''
     Update EndPoint
     '''
-    if ARGS['PublicKeys']:
+    if os.environ['public_keys']:
         arguments['AddPublicKeys'] = {
-            "AddPublicKeys": ARGS['PublicKeys'].split(',')}
-    arguments['DeletePublicKeys'] = dev_end_point.get('PublicKeys')
-    if ARGS['ExtraPythonLibsS3Path'] and ARGS['ExtraJarsS3Path']:
+            "AddPublicKeys": os.environ['public_keys'].split(',')}
+    if dev_end_point.get('PublicKeys'):
+        arguments['DeletePublicKeys'] = dev_end_point.get('PublicKeys')
+    if os.environ['extra_python_libs_s3_path'] and os.environ['extra_jars_s3_path']:
         arguments['CustomLibraries'] = {
             "CustomLibraries": {
-                "ExtraPythonLibsS3Path": ARGS['ExtraPythonLibsS3Path'],
-                "ExtraJarsS3Path": ARGS['ExtraJarsS3Path']}}
+                "ExtraPythonLibsS3Path": os.environ['extra_python_libs_s3_path'],
+                "ExtraJarsS3Path": os.environ['extra_jars_s3_path']}}
     AWS_GLUE_API.update_dev_endpoint(**arguments)
 
 def main():
@@ -64,28 +65,28 @@ def main():
     Create or Update Endpoint
     '''
     arguments = {
-        "EndpointName": ARGS['EndpointName'],
-        "RoleArn": ARGS['RoleArn']
+        "EndpointName": os.environ['endpoint_name']
     }
-    if ARGS['PublicKey']:
-        arguments['PublicKey'] = ARGS['PublicKey']
-    dev_end_point = get_dev_endpoint_not_exist()
-    if dev_end_point:
+    if os.environ['public_key']:
+        arguments['PublicKey'] = os.environ['public_key']
+    if get_dev_endpoint_not_exist():
         exist = "False"
         try:
-            create_dev_endpoint(arguments)
+            create_endpoint(arguments)
             result = "Created"
         except Exception as error:
             result = str(error)
     else:
+        dev_end_point = AWS_GLUE_API.get_dev_endpoint(
+            EndpointName=os.environ['endpoint_name'])
         exist = "True"
         try:
-            update_dev_endpoint(arguments, dev_end_point)
+            update_endpoint(arguments, dev_end_point)
             result = "Updated"
         except Exception as error:
             result = str(error)
     return json.dumps({
-        "EndPointName": ARGS['EndpointName'],
+        "EndpointName": os.environ['endpoint_name'],
         "Result": result,
         "Exist": exist
     })
