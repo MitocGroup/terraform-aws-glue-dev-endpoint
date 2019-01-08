@@ -25,11 +25,6 @@ variable "glue_endpoint_subnet_id" {
   default = ""
 }
 
-variable "glue_endpoint_public_key" {
-  description = "The public key to be used by this DevEndpoint for authentication. This attribute is provided for backward compatibility, as the recommended attribute to use is public keys."
-  default = ""
-}
-
 variable "glue_endpoint_public_keys" {
   type        = "list"
   description = "A list of public keys to be used by the DevEndpoints for authentication. The use of this attribute is preferred over a single public key because the public keys allow you to have a different private key per client."

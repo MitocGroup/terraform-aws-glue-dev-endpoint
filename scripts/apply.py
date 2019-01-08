@@ -67,8 +67,6 @@ def main():
     arguments = {
         "EndpointName": os.environ['endpoint_name']
     }
-    if os.environ['public_key']:
-        arguments['PublicKey'] = os.environ['public_key']
     if get_dev_endpoint_not_exist():
         exist = "False"
         try:
