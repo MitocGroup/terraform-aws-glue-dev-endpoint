@@ -8,7 +8,7 @@ resource "null_resource" "glue_endpoint_apply" {
     environment {
       region                    = "${var.region}"
       endpoint_name             = "${var.glue_endpoint_name}"
-      role_arn                  = "arn:aws:iam::${var.account_id}:role/${var.glue_endpoint_role_name}"
+      role_arn                  = "arn:aws:iam::${var.account_id}:role/${var.glue_endpoint_role}"
       security_group_ids        = "${join(",",var.glue_endpoint_security_group_ids)}"
       subnet_id                 = "${var.glue_endpoint_subnet_id}"
       public_key                = "${var.glue_endpoint_public_key}"
