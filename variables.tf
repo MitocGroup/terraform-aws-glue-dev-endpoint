@@ -18,7 +18,9 @@ variable "glue_endpoint_role" {
 variable "glue_endpoint_security_group_ids" {
   type        = list(string)
   description = "Security group IDs for the security groups to be used by the new DevEndpoint."
+  default     = []
 }
+
 
 variable "glue_endpoint_subnet_id" {
   description = "The subnet ID for the new DevEndpoint to use."
@@ -28,7 +30,9 @@ variable "glue_endpoint_subnet_id" {
 variable "glue_endpoint_public_keys" {
   type        = list(string)
   description = "A list of public keys to be used by the DevEndpoints for authentication. The use of this attribute is preferred over a single public key because the public keys allow you to have a different private key per client."
+  default     = []
 }
+
 
 variable "glue_endpoint_number_of_dpus" {
   description = "The number of AWS Glue Data Processing Units (DPUs) to allocate to this DevEndpoint."
