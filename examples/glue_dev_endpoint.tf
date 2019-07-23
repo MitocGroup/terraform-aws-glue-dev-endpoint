@@ -17,7 +17,7 @@ terraform {
 module "glue-dev-endpoint" {
   source = "../"
   glue_endpoint_name                   = "test"
-  glue_endpoint_role                   = ""   #same role as the crawler
+  glue_endpoint_role                   = "dp_dl_nonprod_role_etl_test_job_dev_01"   #same role as the crawler
   glue_endpoint_security_group_ids     = ""
   glue_endpoint_subnet_id              = ""
   glue_endpoint_public_keys            = ""
@@ -27,12 +27,12 @@ module "glue-dev-endpoint" {
   glue_endpoint_security_configuration = ""
 
   tags = {
-    Type                 = "etl-test-job"
+    Type                 = "glue-dev-endpoint"
     Origin               = "leak"
     Source-Environment   = "dev"
     Source-Data          = "events"
     Update-Frequency     = "daily"
-    Documentation        = "https://confluence.bgchtest.info/display/DTS/Curated+data+sets"
+    Documentation        = "https://confluence.bgchtest.info/display/DTS/Raw+data+sets"
     Business-Owner       = "Robert Vadai"
     Cost-Center          = "11111"
     Classification-level = "2"

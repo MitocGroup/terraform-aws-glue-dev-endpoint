@@ -44,7 +44,7 @@ def create_endpoint(arguments):
         arguments['RoleArn'] = os.environ['role_arn']
     if os.environ['tags']:
         arguments['tags'] = {
-            "tags": os.environ['tags'].split(',')}
+            "tags": os.environ['tags'].splitlines()}
     AWS_GLUE_API.create_dev_endpoint(**arguments)
 
 def update_endpoint(arguments, dev_end_point):
