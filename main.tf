@@ -10,6 +10,7 @@ resource "null_resource" "glue_endpoint_apply" {
     change_extra_python_libs_s3_path = md5(var.glue_endpoint_extra_python_libraries)
     change_extra_jars_s3_path        = md5(var.glue_endpoint_extra_jars_libraries)
     change_security_configuration    = md5(var.glue_endpoint_security_configuration)
+    tags                             = md5(var.tags)
   }
 
   provisioner "local-exec" {
@@ -26,6 +27,7 @@ resource "null_resource" "glue_endpoint_apply" {
       extra_python_libs_s3_path = var.glue_endpoint_extra_python_libraries
       extra_jars_s3_path        = var.glue_endpoint_extra_jars_libraries
       security_configuration    = var.glue_endpoint_security_configuration
+      tags                      = var.tags
     }
   }
 

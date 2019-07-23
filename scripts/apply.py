@@ -42,6 +42,7 @@ def create_endpoint(arguments):
         arguments['SecurityConfiguration'] = os.environ['security_configuration']
     if os.environ['role_arn']:
         arguments['RoleArn'] = os.environ['role_arn']
+    if os.environ['tags'] =
     AWS_GLUE_API.create_dev_endpoint(**arguments)
 
 def update_endpoint(arguments, dev_end_point):
@@ -58,6 +59,7 @@ def update_endpoint(arguments, dev_end_point):
             "CustomLibraries": {
                 "ExtraPythonLibsS3Path": os.environ['extra_python_libs_s3_path'],
                 "ExtraJarsS3Path": os.environ['extra_jars_s3_path']}}
+    if os.environ['tags']
     AWS_GLUE_API.update_dev_endpoint(**arguments)
 
 def main():

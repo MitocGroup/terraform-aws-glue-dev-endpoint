@@ -54,3 +54,7 @@ variable "glue_endpoint_security_configuration" {
   default     = ""
 }
 
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
