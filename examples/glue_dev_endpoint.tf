@@ -16,11 +16,11 @@ terraform {
 
 module "glue-dev-endpoint" {
   source = "../"
-  glue_endpoint_name                   = "test"
+  glue_endpoint_name                   = "dp-dl-dev-endpoint-test--01"
   glue_endpoint_role                   = "dp_dl_nonprod_role_etl_test_job_dev_01"   #same role as the crawler
-  glue_endpoint_security_group_ids     = ""
+  glue_endpoint_security_group_ids     = []
   glue_endpoint_subnet_id              = ""
-  glue_endpoint_public_keys            = ""
+  glue_endpoint_public_keys            = []
   glue_endpoint_number_of_dpus         = ""
   glue_endpoint_extra_python_libraries = ""
   glue_endpoint_extra_jars_libraries   = ""
